@@ -1,2 +1,2 @@
 # BookStoreClientWeb
-Demo web bán sách dưới view khách hàng
+Demo web bán quần áo dưới view khách hàng
