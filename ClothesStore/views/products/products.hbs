@@ -1,24 +1,5 @@
-
-
 <ul class="thumbnails">
 <div id="page"> 
-  <!-- Breadcrumbs -->
-  <div class="breadcrumbs">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12">
-          <ul class="breadcrumb">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Women</a></li>
-            <li><a href="#">Holiday</a></li>
-            <li><a href="#">Jeans</a></li>
-            <li><a href="#">Retis lapen casen</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Breadcrumbs End --> 
   <!-- Main Container -->
   <section class="main-container col2-left-layout bounceInUp animated">
     <div class="container">
@@ -98,11 +79,11 @@
             </div>
             <div class="category-products">
               <ul class="products-grid">
-                {{#each books}}
+                {{#each products}}
                   <li class="item col-lg-4 col-md-3 col-sm-4 col-xs-6">
                     <div class="item-inner">
                       <div class="item-img">
-                        <div class="item-img-info"><a href="#" title="{{title}}" class="product-image"><img src="{{cover}}" alt="{{title}}"></a>
+                        <div class="item-img-info"><a href="/products/{{slug}}/detail" title="{{name}}" class="product-image"><img src="{{image}}" alt="{{name}}"></a>
                           <div class="new-label new-top-left">New</div>
                           <div class="actions">
                             <div class="quick-view-btn"><a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="Quick View"> <span>Quick View</span></a></div>
@@ -124,10 +105,10 @@
                       </div>
                       <div class="item-info">
                         <div class="info-inner">
-                          <div class="item-title"><a href="#" title="{{title}}">{{title}}</a> </div>
+                          <div class="item-title"><a href="#" title="{{name}}">{{name}}</a> </div>
                           <div class="item-content">
                             <div class="item-price">
-                              <div class="price-box"><span class="regular-price"><span class="price">{{basePrice}} VNĐ</span> </span> </div>
+                              <div class="price-box"><span class="regular-price"><span class="price">{{price}} VNĐ</span> </span> </div>
                             </div>
                           </div>
                         </div>

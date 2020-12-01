@@ -1,8 +1,8 @@
 <ul>
-    {{#each productDetail}}
+    {{#each product}}
     <div id="page"> 
   
-  <!-- Breadcrumbs -->
+  {{!-- <!-- Breadcrumbs -->
   <div class="breadcrumbs">
     <div class="container">
       <div class="row">
@@ -18,8 +18,9 @@
       </div>
     </div>
   </div>
-  <!-- Breadcrumbs End --> 
+  <!-- Breadcrumbs End -->  --}}
   <!-- Main Container -->
+                <div class="container"><br><br><br></div>
   <section class="main-container col1-layout wow bounceInUp animated">
     <div class="main container">
       <div class="col-main">
@@ -32,42 +33,41 @@
                 <div class="product-img-box col-sm-4 col-xs-12">
                   <div class="new-label new-top-left"> New </div>
                   <div class="product-image">
-                    <div class="large-image"> <a href="products-images/product.jpg" class="cloud-zoom" id="zoom1"> <img src="products-images/product.jpg" alt="product image"> </a> </div>
-                    <div class="flexslider flexslider-thumb">
+                    <div class="large-image"> <a href="{{image}}" class="cloud-zoom" id="zoom1"> <img src="{{image}}" alt="product image"> </a> </div>
+                    {{!-- <div class="flexslider flexslider-thumb">
                       <ul class="previews-list slides">
-                        <li><a href='products-images/product.jpg' class='cloud-zoom-gallery' rel="useZoom: 'zoom1', smallImage: 'products-images/product.jpg' "><img src="products-images/product.jpg" alt = "Thumbnail 1"/></a></li>
-                        <li><a href='products-images/product.jpg' class='cloud-zoom-gallery' rel="useZoom: 'zoom1', smallImage: 'products-images/product.jpg' "><img src="products-images/product.jpg" alt = "Thumbnail 2"/></a></li>
-                        <li><a href='products-images/product.jpg' class='cloud-zoom-gallery' rel="useZoom: 'zoom1', smallImage: 'products-images/product.jpg' "><img src="products-images/product.jpg" alt = "Thumbnail 1"/></a></li>
-                        <li><a href='products-images/product.jpg' class='cloud-zoom-gallery' rel="useZoom: 'zoom1', smallImage: 'products-images/product.jpg' "><img src="products-images/product.jpg" alt = "Thumbnail 2"/></a></li>
-                        <li><a href='products-images/product.jpg' class='cloud-zoom-gallery' rel="useZoom: 'zoom1', smallImage: 'products-images/product.jpg' "><img src="products-images/product.jpg" alt = "Thumbnail 2"/></a></li>
-                        <li><a href='products-images/product.jpg' class='cloud-zoom-gallery' rel="useZoom: 'zoom1', smallImage: 'products-images/product.jpg' "><img src="products-images/product.jpg" alt = "Thumbnail 2"/></a></li>
-                        <li><a href='products-images/product.jpg' class='cloud-zoom-gallery' rel="useZoom: 'zoom1', smallImage: 'products-images/product.jpg' "><img src="products-images/product.jpg" alt = "Thumbnail 2"/></a></li>
+                        <li><a href='{{image}}' class='cloud-zoom-gallery' rel="useZoom: 'zoom1', smallImage: '{{image}}' "><img src="{{image}}" alt = "Thumbnail 1"/></a></li>
+                        <li><a href='{{image}}' class='cloud-zoom-gallery' rel="useZoom: 'zoom1', smallImage: '{{image}}' "><img src="{{image}}" alt = "Thumbnail 2"/></a></li>
+                        <li><a href='{{image}}' class='cloud-zoom-gallery' rel="useZoom: 'zoom1', smallImage: '{{image}}' "><img src="{{image}}" alt = "Thumbnail 1"/></a></li>
+                        <li><a href='{{image}}' class='cloud-zoom-gallery' rel="useZoom: 'zoom1', smallImage: '{{image}}' "><img src="{{image}}" alt = "Thumbnail 2"/></a></li>
+                        <li><a href='{{image}}' class='cloud-zoom-gallery' rel="useZoom: 'zoom1', smallImage: '{{image}}' "><img src="{{image}}" alt = "Thumbnail 2"/></a></li>
+                        <li><a href='{{image}}' class='cloud-zoom-gallery' rel="useZoom: 'zoom1', smallImage: '{{image}}' "><img src="{{image}}" alt = "Thumbnail 2"/></a></li>
+                        <li><a href='{{image}}' class='cloud-zoom-gallery' rel="useZoom: 'zoom1', smallImage: '{{image}}' "><img src="{{image}}" alt = "Thumbnail 2"/></a></li>
                       </ul>
-                    </div>
+                    </div> --}}
                   </div>
                   <!-- end: more-images --> 
                 </div>
                 <div class="product-shop col-sm-8 col-xs-12">
                   <div class="product-name">
-                    <h1>Retis lapen casen</h1>
+                    <h1>{{name}}</h1>
                   </div>
                   <div class="ratings">
                     <div class="rating-box">
                       <div style="width:60%" class="rating"></div>
                     </div>
-                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Your Review</a> </p>
                   </div>
                   <div class="price-block">
                     <div class="price-box">
-                      <p class="special-price"> <span class="price-label">Special Price</span> <span id="product-price-48" class="price"> $309.99 </span> </p>
-                      <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price"> $315.99 </span> </p>
+                      <p class="special-price"> <span class="price-label">Special Price</span> <span id="product-price-48" class="price"> {{price}} VND </span> </p>
+                      <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price"> {{price}} VND </span> </p>
                     </div>
                     <p class="availability in-stock pull-right"><span>In Stock</span></p>
                   </div>
-                  <div class="short-description">
-                    <h2>Quick Overview</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum. Morbi ornare lectus quis justo gravida semper. Nulla tellus mi, vulputate adipiscing cursus eu, suscipit id nulla. Donec a neque libero. Pellentesque aliquet, sem eget laoreet ultrices, ipsum metus feugiat sem. </p>
-                  </div>
+                  {{!-- <div class="short-description">
+                    <h2>PRODUCT DESCRIPTION</h2>
+                    <p>{{description}}</p>
+                  </div> --}}
                   <div class="add-to-box">
                     <div class="add-to-cart">
                       <div class="pull-left">
@@ -92,37 +92,13 @@
             </div>
             <div class="product-collateral col-lg-12 col-sm-12 col-xs-12 bounceInUp animated">
               <div class="add_info">
-                <ul id="product-detail-tab" class="nav nav-tabs product-tabs">
+                <ul id="product-detail-tab" class="nav nav-tabs product-tabs nav-color">
                   <li class="active"> <a href="#product_tabs_description" data-toggle="tab"> Product Description </a> </li>
-                  <li><a href="#product_tabs_tags" data-toggle="tab">Tags</a></li>
                   <li> <a href="#reviews_tabs" data-toggle="tab">Reviews</a> </li>
-                  <li> <a href="#product_tabs_custom" data-toggle="tab">Custom Tab</a> </li>
-                  <li> <a href="#product_tabs_custom1" data-toggle="tab">Custom Tab1</a> </li>
                 </ul>
                 <div id="productTabContent" class="tab-content">
                   <div class="tab-pane fade in active" id="product_tabs_description">
-                    <div class="std">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum. Morbi ornare lectus quis justo gravida semper. Nulla tellus mi, vulputate adipiscing cursus eu, suscipit id nulla. Donec a neque libero. Pellentesque aliquet, sem eget laoreet ultrices, ipsum metus feugiat sem, quis fermentum turpis eros eget velit.</p>
-                      <p> Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend laoreet congue. Vivamus adipiscing nisl ut dolor dignissim semper.</p>
-                    </div>
-                  </div>
-                  <div class="tab-pane fade" id="product_tabs_tags">
-                    <div class="box-collateral box-tags">
-                      <div class="tags">
-                        <form id="addTagForm" action="#" method="get">
-                          <div class="form-add-tags">
-                            <label for="productTagName">Add Tags:</label>
-                            <div class="input-box">
-                              <input class="input-text" name="productTagName" id="productTagName" type="text">
-                              <button type="button" title="Add Tags" class=" button btn-add" onClick="submitTagForm()"> <span>Add Tags</span> </button>
-                            </div>
-                            <!--input-box--> 
-                          </div>
-                        </form>
-                      </div>
-                      <!--tags-->
-                      <p class="note">Use spaces to separate tags. Use single quotes (') for phrases.</p>
-                    </div>
+                    <div class="std">{{description}}</div>
                   </div>
                   <div class="tab-pane fade" id="reviews_tabs">
                     <div class="box-collateral box-reviews" id="customer-reviews">
@@ -316,36 +292,6 @@
                       <div class="clear"></div>
                     </div>
                   </div>
-                  <div class="tab-pane fade" id="product_tabs_custom">
-                    <div class="product-tabs-content-inner clearfix">
-                      <p><strong>Lorem Ipsum</strong><span>&nbsp;is
-                        simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                        has been the industry's standard dummy text ever since the 1500s, when 
-                        an unknown printer took a galley of type and scrambled it to make a type
-                        specimen book. It has survived not only five centuries, but also the 
-                        leap into electronic typesetting, remaining essentially unchanged. It 
-                        was popularised in the 1960s with the release of Letraset sheets 
-                        containing Lorem Ipsum passages, and more recently with desktop 
-                        publishing software like Aldus PageMaker including versions of Lorem 
-                        Ipsum.</span></p>
-                    </div>
-                  </div>
-                  <div class="tab-pane fade" id="product_tabs_custom1">
-                    <div class="product-tabs-content-inner clearfix">
-                      <p> <strong> Comfortable </strong><span>&nbsp;preshrunk shirts. Highest Quality Printing.  6.1 oz. 100% preshrunk heavyweight cotton Shoulder-to-shoulder taping Double-needle sleeves and bottom hem     
-                        
-                        Lorem Ipsumis
-                        simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                        has been the industry's standard dummy text ever since the 1500s, when 
-                        an unknown printer took a galley of type and scrambled it to make a type
-                        specimen book. It has survived not only five centuries, but also the 
-                        leap into electronic typesetting, remaining essentially unchanged. It 
-                        was popularised in the 1960s with the release of Letraset sheets 
-                        containing Lorem Ipsum passages, and more recently with desktop 
-                        publishing software like Aldus PageMaker including versions of Lorem 
-                        Ipsum.</span></p>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -355,7 +301,7 @@
     </div>
   </section>
   <!-- Main Container End --> 
-  
+{{!--   
   <!-- Related Products Slider -->
   <section class="related-pro wow bounceInUp animated">
     <div class="container">
@@ -368,7 +314,7 @@
             <div class="item">
               <div class="item-inner">
                 <div class="item-img">
-                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="products-images/product.jpg" alt="Retis lapen casen"></a>
+                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="{{image}}" alt="Retis lapen casen"></a>
                     
                     <div class="actions">
                       <div class="quick-view-btn"><a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="Quick View"> <span>Quick View</span></a></div>
@@ -405,7 +351,7 @@
             <div class="item">
               <div class="item-inner">
                 <div class="item-img">
-                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="products-images/product.jpg" alt="Retis lapen casen"></a>
+                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="{{image}}" alt="Retis lapen casen"></a>
                     
                     <div class="actions">
                       <div class="quick-view-btn"><a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="Quick View"> <span>Quick View</span></a></div>
@@ -443,7 +389,7 @@
             <div class="item">
               <div class="item-inner">
                 <div class="item-img">
-                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="products-images/product.jpg" alt="Retis lapen casen"></a>
+                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="{{image}}" alt="Retis lapen casen"></a>
                     
                     <div class="actions">
                       <div class="quick-view-btn"><a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="Quick View"> <span>Quick View</span></a></div>
@@ -480,7 +426,7 @@
             <div class="item">
               <div class="item-inner">
                 <div class="item-img">
-                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="products-images/product.jpg" alt="Retis lapen casen"></a>
+                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="{{image}}" alt="Retis lapen casen"></a>
                     
                     <div class="actions">
                       <div class="quick-view-btn"><a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="Quick View"> <span>Quick View</span></a></div>
@@ -517,7 +463,7 @@
             <div class="item">
               <div class="item-inner">
                 <div class="item-img">
-                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="products-images/product.jpg" alt="Retis lapen casen"></a>
+                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="{{image}}" alt="Retis lapen casen"></a>
                     
                     <div class="actions">
                       <div class="quick-view-btn"><a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="Quick View"> <span>Quick View</span></a></div>
@@ -553,7 +499,7 @@
             <div class="item">
               <div class="item-inner">
                 <div class="item-img">
-                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="products-images/product.jpg" alt="Retis lapen casen"></a>
+                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="{{image}}" alt="Retis lapen casen"></a>
                     
                     <div class="actions">
                       <div class="quick-view-btn"><a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="Quick View"> <span>Quick View</span></a></div>
@@ -589,7 +535,7 @@
             <div class="item">
               <div class="item-inner">
                 <div class="item-img">
-                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="products-images/product.jpg" alt="Retis lapen casen"></a>
+                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="{{image}}" alt="Retis lapen casen"></a>
                     
                     <div class="actions">
                       <div class="quick-view-btn"><a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="Quick View"> <span>Quick View</span></a></div>
@@ -642,7 +588,7 @@
             <div class="item">
               <div class="item-inner">
                 <div class="item-img">
-                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="products-images/product.jpg" alt="Retis lapen casen"></a>
+                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="{{image}}" alt="Retis lapen casen"></a>
                     
                     <div class="actions">
                       <div class="quick-view-btn"><a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="Quick View"> <span>Quick View</span></a></div>
@@ -679,7 +625,7 @@
             <div class="item">
               <div class="item-inner">
                 <div class="item-img">
-                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="products-images/product.jpg" alt="Retis lapen casen"></a>
+                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="{{image}}" alt="Retis lapen casen"></a>
                     
                     <div class="actions">
                       <div class="quick-view-btn"><a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="Quick View"> <span>Quick View</span></a></div>
@@ -717,7 +663,7 @@
             <div class="item">
               <div class="item-inner">
                 <div class="item-img">
-                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="products-images/product.jpg" alt="Retis lapen casen"></a>
+                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="{{image}}" alt="Retis lapen casen"></a>
                     
                     <div class="actions">
                       <div class="quick-view-btn"><a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="Quick View"> <span>Quick View</span></a></div>
@@ -754,7 +700,7 @@
             <div class="item">
               <div class="item-inner">
                 <div class="item-img">
-                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="products-images/product.jpg" alt="Retis lapen casen"></a>
+                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="{{image}}" alt="Retis lapen casen"></a>
                     
                     <div class="actions">
                       <div class="quick-view-btn"><a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="Quick View"> <span>Quick View</span></a></div>
@@ -791,7 +737,7 @@
             <div class="item">
               <div class="item-inner">
                 <div class="item-img">
-                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="products-images/product.jpg" alt="Retis lapen casen"></a>
+                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="{{image}}" alt="Retis lapen casen"></a>
                     
                     <div class="actions">
                       <div class="quick-view-btn"><a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="Quick View"> <span>Quick View</span></a></div>
@@ -827,7 +773,7 @@
             <div class="item">
               <div class="item-inner">
                 <div class="item-img">
-                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="products-images/product.jpg" alt="Retis lapen casen"></a>
+                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="{{image}}" alt="Retis lapen casen"></a>
                     
                     <div class="actions">
                       <div class="quick-view-btn"><a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="Quick View"> <span>Quick View</span></a></div>
@@ -863,7 +809,7 @@
             <div class="item">
               <div class="item-inner">
                 <div class="item-img">
-                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="products-images/product.jpg" alt="Retis lapen casen"></a>
+                  <div class="item-img-info"><a href="#" title="Retis lapen casen" class="product-image"><img src="{{image}}" alt="Retis lapen casen"></a>
                     
                     <div class="actions">
                       <div class="quick-view-btn"><a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="Quick View"> <span>Quick View</span></a></div>
@@ -901,7 +847,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> --}}
   
 </div>
     {{/each}}

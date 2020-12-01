@@ -12,6 +12,8 @@
     "express": "~4.16.1",
     "hbs": "~4.0.4",
     "http-errors": "~1.6.3",
+    "mongoose": "^5.11.0",
+    "mongoose-slug-generator": "^1.0.4",
     "morgan": "~1.9.1"
   },
   "devDependencies": {
