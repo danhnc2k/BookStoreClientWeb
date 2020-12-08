@@ -26,6 +26,15 @@
               <div class="form-default">
                 <form method="POST">
                   <div class="form-group">
+                    
+                      <label for="ProductImage">Hình ảnh</label>
+                      <input type="file" class="form-control-file" name="ProductImage" id="nameImage" multiple/>
+                      <div class="image-preview" id="imagePreview">
+                        <img src="" alt="Image Preview" class="image-preview__image"/>
+                        <span class="image-preview__default-text">Image Preview</span>
+                         
+                      </div>  
+                    
                     <label for="shopInputFirstName" class="control-label"
                       >Họ *</label
                     >
@@ -118,4 +127,47 @@
     <% include partials/modal-subscribegood %> <% include
     partials/modal-newsletter %> <% include partials/script %>
   </body>
+  <script>
+    const inputFile = document.getElementById("nameImage");
+    const previewContainer = document.getElementById("imagePreview");
+    const previewImage = document.querySelector(".image-preview__image");
+    const previewDefaultText = document.querySelector(".image-preview__default-text");
+
+    inputFile.addEventListener("change", function () {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        previewImage.style.display = "block";
+        previewDefaultText.style.display = "none";
+        reader.addEventListener("load", function(){
+          console.log(this);
+          previewImage.setAttribute("src", this.result);
+        });
+
+        reader.readAsDataURL(file);
+      }
+    });
+    function selectType() {
+      const ProductType = document.getElementById("ProductType").value;
+      const PhuKien = document.getElementById("ProductSubTypePhuKien");
+      const Ao = document.getElementById("ProductSubTypeAo");
+      const Quan = document.getElementById("ProductSubTypeQuan");
+
+      if (ProductType == "Phụ Kiện"){
+        PhuKien.style.display = "block";
+        Ao.style.display = "none";
+        Quan.style.display = "none";
+      }
+      else if (ProductType == "Áo"){
+        PhuKien.style.display = "none";
+        Ao.style.display = "block";
+        Quan.style.display = "none";
+      }
+      else if (ProductType == "Quần"){
+        PhuKien.style.display = "none";
+        Ao.style.display = "none";
+        Quan.style.display = "block";
+      }
+    }
+  </script>
 </html>
