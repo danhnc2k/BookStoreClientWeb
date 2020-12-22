@@ -50,35 +50,23 @@ const productSchema = new Schema({
     required: false,
     default: Date.now
   },
-  isSale: {
-    status: {
-      type: Boolean,
-      default: false
-    },
-    percent: {
-      type: Number,
-      default: 0
-    },
-    end: {
-      type: Date
-    }
+  sale: {
+    type: String,
+    required: false,
+    default: 0
   },
   ofSellers: {
-    userId: {
-      type: Schema.Types.ObjectId,
+      type: String,
       required: true,
       ref: "User"
-    },
-    name: String
   },
   labels: {
     type: String,
-    required: false,
-    default: "Shiro"
+    required: false
   },
   materials: {
     type: [String],
-    required: true
+    required: false
   },
   buyCounts: {
     type: Number,
@@ -146,4 +134,5 @@ productSchema.methods.getNonAccentType = function() {
 };
 
 const Product = mongoose.model("Product", productSchema);
+
 module.exports = Product;

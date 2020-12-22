@@ -59,20 +59,20 @@
 									<ul class="tt-list-row">
 											<% categories.forEach(function(cat) { %>
 
-												<%if (cat == currentCat) { %>
+												<%if (maincat.find(x => x.name == cat)._id == currentCat) { %>
 													<li class ="active">
-															<a href="/products/<%= cat %>"><%= cat %></a></li>
+															<a href="/products/<%= currentCat %>"><%= cat %></a></li>
 													</li>
 														<% categoriesChild.forEach(function(child) { %>
-															<%if (child == currentChild) { %>
+															<%if (child._id == currentChild) { %>
 															<li class="active" style="margin-left: 10px;">
-																	<a href="/products/<%= cat %>/<%= child %>"><%= child %></a></li>
+																	<a href="/products/<%= currentCat %>/<%= child._id %>"><%= child.name %></a></li>
 															</li>
 															<% }; %>
 
-															<%if (child != currentChild) { %>
+															<%if (child._id != currentChild) { %>
 																<li style="margin-left: 10px;">
-																		<a href="/products/<%= cat %>/<%= child %>"><%= child %></a></li>
+																		<a href="/products/<%= maincat.find(x => x.name == cat)._id %>/<%= child._id %>"><%= child.name %></a></li>
 																</li>
 																<% }; %>
 															<% }); %>
@@ -80,7 +80,7 @@
 
 													<%if (cat != currentCat) { %>
 														<li>
-																<a href="/products/<%= cat %>"><%= cat %></a></li>
+																<a href="/products/<%= maincat.find(x => x.name == cat)._id %>"><%= cat %></a></li>
 													</li>
 														<% }; %>
 										
@@ -150,10 +150,9 @@
 						<h3 class="tt-collapse-title">Thương hiệu</h3>
 						<div class="tt-collapse-content">
 							<ul class="tt-list-row" id="product-label">
-								<li><input type="radio" name="label" value="shiro"> Shiro</li>
-								<li><input type="radio" name="label" value="crepp"> Crepp</li>
-								<li><input type="radio" name="label" value="mob"> Mob</li>
-								<li><input type="radio" name="label" value="Gucci"> Gucci</li>
+								<%alllabels.forEach(label =>{%>
+									<li><input type="radio" name="label" value="<%= label._id %>"> <%= label.name %></li>
+								<%});%>
 							</ul>
 						</div>
 					</div>
@@ -258,7 +257,7 @@
 										<div class="tt-description">
 											<div class="tt-row">
 												<ul class="tt-add-info">
-													<li><a href="#"><%= prod.productType.sub %></a></li>
+													<li><a href="#"><%= subcat.find(x => x._id == prod.productType.sub).name %></a></li>
 												</ul>
 												<div class="tt-rating">
 													<i class="icon-star"></i>
