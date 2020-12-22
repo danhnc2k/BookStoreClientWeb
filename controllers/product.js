@@ -2,8 +2,14 @@ const Products = require("../models/product");
 const ProductsService = require("../models/productService");
 const Categories = require("../models/productCategory");
 const Cart = require("../models/cart");
-var Users = require("../models/user");
+const Users = require("../models/user");
 const Order = require("../models/order");
+const CategoryService = require("../models/categoryService");
+const LabelsService = require("../models/labelsService");
+
+const maincat = CategoryService.mainCategoryName();
+const subcat = CategoryService.subCategoryName();
+const alllabels = LabelsService.allLabels();
 
 var ITEM_PER_PAGE = 12;
 var SORT_ITEM;
@@ -26,22 +32,27 @@ exports.getIndexProducts = (req, res, next) => {
     cartProduct = cart.generateArray();
   }
 
-  Products.find()
-    .limit(8)
-    .then(products => {
-      Products.find()
-        .limit(8)
-        .sort("buyCounts")
-        .then(products2 => {
-          res.render("index", {
-            title: "Trang chủ",
-            user: req.user,
-            trendings: products,
-            hots: products2,
-            cartProduct: cartProduct
-          });
+  ProductsService.count().then(num =>{
+    Products.find()
+        .sort("viewCounts")
+        .skip(num - 8)
+        .then(products => {
+          Products.find()
+              .sort("buyCounts")
+              .skip(num - 8)
+              .then(products2 => {
+                res.render("index", {
+                  title: "Trang chủ",
+                  user: req.user,
+                  trendings: products,
+                  hots: products2,
+                  cartProduct: cartProduct,
+                  subcat: subcat,
+                  subcat2: subcat,
+                });
+              });
         });
-    })
+  })
     .catch(err => {
       console.log(err);
     });
@@ -57,24 +68,27 @@ exports.getProduct = (req, res, next) => {
   }
   const prodId = req.params.productId;
   Products.findOne({ _id: `${prodId}` }).then(product => {
-    Products.find({ "productType.main": product.productType.main }).then(
-      relatedProducts => {
-        res.render("product", {
-          title: `${product.name}`,
-          user: req.user,
-          prod: product,
-          comments: product.comment.items,
-          allComment: product.comment.total,
-          cartProduct: cartProduct,
-          relatedProducts: relatedProducts
+    Products.find({ "productType.sub": product.productType.sub }).then( relatedProducts => {
+        Categories.findOne({_id: product.productType.main}).then(cat =>{
+          res.render("product", {
+            title: `${product.name}`,
+            user: req.user,
+            prod: product,
+            comments: product.comment.items,
+            allComment: product.comment.items.length,
+            cartProduct: cartProduct,
+            relatedProducts: relatedProducts,
+            category: cat.name,
+          });
+          product.save();
         });
-        product.save();
-      }
-    );
+      });
   });
 };
 
 exports.getProducts = (req, res, next) => {
+
+
   var cartProduct;
   if (!req.session.cart) {
     cartProduct = null;
@@ -123,7 +137,7 @@ exports.getProducts = (req, res, next) => {
   if (productType == undefined) {
     productType = "";
   } else {
-    Categories.findOne({ name: `${productType}` }, (err, data) => {
+    Categories.findOne({ _id: `${productType}` }, (err, data) => {
       if (err) console.log(err);
       if (data) {
         childType = data.childName || "";
@@ -144,6 +158,7 @@ exports.getProducts = (req, res, next) => {
     price: { $gt: plowerprice, $lt: pprice },
     labels: new RegExp(plabel, "i"),
   };
+
 
   ProductsService.count(filter)
     .then(numProduct => {
@@ -168,7 +183,11 @@ exports.getProducts = (req, res, next) => {
         lastPage: paginate.totalPages,
         ITEM_PER_PAGE: ITEM_PER_PAGE,
         sort_value: sort_value,
-        cartProduct: cartProduct
+        cartProduct: cartProduct,
+        maincat: maincat,
+        subcat: subcat,
+        alllabels,
+        subcatfilter: subcat,
       });
     })
     .catch(err => {
@@ -220,7 +239,8 @@ exports.getSearch = (req, res, next) => {
         nextPage: page + 1,
         previousPage: page - 1,
         lastPage: Math.ceil(totalItems / 12),
-        cartProduct: cartProduct
+        cartProduct: cartProduct,
+        subcat,
       });
     })
     .catch(err => {

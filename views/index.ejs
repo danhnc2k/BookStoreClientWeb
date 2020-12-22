@@ -209,7 +209,7 @@
 							<div class="tt-description">
 								<div class="tt-row">
 									<ul class="tt-add-info">
-										<li><a href="#"><%= prod.productType.sub %></a></li>
+										<li><a href="#"><%= subcat.find(x => x._id == prod.productType.sub).name %></a></li>
 									</ul>
 									<div class="tt-rating">
 										<i class="icon-star"></i>
@@ -390,7 +390,7 @@
 							<div class="tt-description">
 								<div class="tt-row">
 									<ul class="tt-add-info">
-										<li><a href="#"><%= prod.productType.sub %></a></li>
+										<li><a href="#"><%= subcat2.find(x => x._id == prod.productType.sub).name %></a></li>
 									</ul>
 									<div class="tt-rating">
 										<i class="icon-star"></i>
