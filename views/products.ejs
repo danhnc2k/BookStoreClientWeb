@@ -196,9 +196,14 @@
 								<form class="woocommerce-ordering" method="GET" >
 									<select name="orderby" class="orderby" aria-label="Shop order" onchange="this.form.submit()">
 										<option value="" selected disabled hidden><%= sort_value %></option>
-										
-										<option value="1" >Giá thấp tới cao</option>
-										<option value="-1" >Giá cao tới thấp</option>
+
+										<option value="new" >Hàng mới</option>
+										<option value="bestseller" >Bán chạy</option>
+										<option value="bestview" >Phổ biến</option>
+										<option value="bestsale" >Giảm giá</option>
+										<option value="lowprice" >Giá thấp tới cao</option>
+										<option value="highprice" >Giá cao tới thấp</option>
+
 									</select>
 									<!-- <input type="hidden" name="paged" value="1"/> -->
 								</form>
@@ -269,7 +274,10 @@
 											</div>
 											<h2 class="tt-title"><a href="/product/<%= prod._id %>"><%= prod.name %></a></h2>
 											<div class="tt-price">
-												$<%= prod.price %>
+												$<%= (prod.price*(100 -(prod.sale))/100) %>
+												<%if (prod.sale != 0) {%>
+												<del style="color: lightgrey">$<%=prod.price%></del>
+												<%}%>
 											</div>
 											<div class="tt-product-inside-hover" >
 												<div class="tt-row-btn">
