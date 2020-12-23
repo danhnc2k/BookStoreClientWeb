@@ -13,7 +13,7 @@ const alllabels = LabelsService.allLabels();
 
 var ITEM_PER_PAGE = 12;
 var SORT_ITEM;
-var sort_value = "Giá thấp tới cao";
+var sort_value = "new";
 var ptype;
 var ptypesub;
 var pprice = 999999;
@@ -23,7 +23,7 @@ var plowerprice;
 var price;
 var searchText;
 
-exports.getIndexProducts = (req, res, next) => {
+exports.getIndexProducts = async (req, res, next) => {
   var cartProduct;
   if (!req.session.cart) {
     cartProduct = null;
@@ -31,31 +31,19 @@ exports.getIndexProducts = (req, res, next) => {
     var cart = new Cart(req.session.cart);
     cartProduct = cart.generateArray();
   }
+  const products = await ProductsService.listproduct({},1,8,{viewCounts:-1});
+  const products2 = await ProductsService.listproduct({},1,8,{buyCounts:-1});
+  res.render("index", {
+    title: "Trang chủ",
+    user: req.user,
+    trendings: products.docs,
+    hots: products2.docs,
+    cartProduct: cartProduct,
+    subcat: subcat,
+    subcat2: subcat,
+    maincat: maincat,
+  });
 
-  ProductsService.count().then(num =>{
-    Products.find()
-        .sort("viewCounts")
-        .skip(num - 8)
-        .then(products => {
-          Products.find()
-              .sort("buyCounts")
-              .skip(num - 8)
-              .then(products2 => {
-                res.render("index", {
-                  title: "Trang chủ",
-                  user: req.user,
-                  trendings: products,
-                  hots: products2,
-                  cartProduct: cartProduct,
-                  subcat: subcat,
-                  subcat2: subcat,
-                });
-              });
-        });
-  })
-    .catch(err => {
-      console.log(err);
-    });
 };
 
 exports.getProduct = (req, res, next) => {
@@ -106,15 +94,33 @@ exports.getProducts = (req, res, next) => {
   plabel = req.query.label !== undefined ? req.query.label : plabel;
   plowerprice = pprice !== 999999 ? pprice - 50 : 0;
   plowerprice = pprice == 1000000 ? 200 : plowerprice;
-  SORT_ITEM = req.query.orderby;
+  SORT_ITEM = req.query.orderby ? req.query.orderby : "new";
 
-  if (SORT_ITEM == -1) {
-    sort_value = "Giá cao tới thấp";
-    price = "-1";
+  var orderby;
+
+  if (SORT_ITEM == "new") {
+    sort_value = "Hàng mới";
+    orderby = {dateAdded:-1};
   }
-  if (SORT_ITEM == 1) {
+  if (SORT_ITEM == "bestseller") {
+    sort_value = "Bán chạy";
+    orderby = {buyCounts:-1};
+  }
+  if (SORT_ITEM == "bestsale") {
+    sort_value = "Giảm giá";
+    orderby = {sale:-1};
+  }
+  if (SORT_ITEM == "bestview") {
+    sort_value = "Phổ biến";
+    orderby = {viewCounts:-1};
+  }
+  if (SORT_ITEM == "lowprice") {
     sort_value = "Giá thấp tới cao";
-    price = "1";
+    orderby = {price:1};
+  }
+  if (SORT_ITEM == "highprice") {
+    sort_value = "Giá cao tới thấp";
+    orderby = {price:-1};
   }
 
   if (Object.entries(req.query).length == 0) {
@@ -163,7 +169,7 @@ exports.getProducts = (req, res, next) => {
   ProductsService.count(filter)
     .then(numProduct => {
       totalItems = numProduct;
-      return ProductsService.listproduct(filter, page, ITEM_PER_PAGE, price);
+      return ProductsService.listproduct(filter, page, ITEM_PER_PAGE, orderby);
     })
     .then(paginate => {
       res.render("products", {
