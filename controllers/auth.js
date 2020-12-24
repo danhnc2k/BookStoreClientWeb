@@ -73,10 +73,10 @@ exports.postSignUp = (req, res, next) => {
 
 exports.getVerifyEmail = (req, res, next) => {
   var transporter = nodemailer.createTransport({
-    service: "Gmail",
+    service: "gmail",
     auth: {
-      user: "nocodenolife2527@gmail.com",
-      pass: "password2527@"
+      user: "doan18120165@gmail.com",
+      pass: "doan123456"
     }
   });
   Users.findOne({ username: req.user.username }).then(user => {
@@ -84,12 +84,12 @@ exports.getVerifyEmail = (req, res, next) => {
       length: 10
     });
     var mainOptions = {
-      from: "Crepp so gud",
+      from: "DHD Shop",
       to: req.user.email,
-      subject: "Test",
-      text: "text ne",
+      subject: "Verify Email",
+      text: "Verify text",
       html:
-        "<p>Cảm ơn đã đăng kí tài khoản của Bros shop. Mã kích hoạt của bạn là:</p>" +
+        "<h2>Cảm ơn đã đăng kí tài khoản của Bros shop. Mã kích hoạt của bạn là:</h2>" +
         verification_token
     };
     transporter.sendMail(mainOptions, (err, info) => {
@@ -160,19 +160,19 @@ exports.postForgotPass = (req, res, next) => {
       var transporter = nodemailer.createTransport({
         service: "Gmail",
         auth: {
-          user: "nocodenolife2527@gmail.com",
-          pass: "password2527@"
+          user: "doan18120165@gmail.com",
+          pass: "doan123456"
         }
       });
       var tpass = randomstring.generate({
         length: 6
       });
       var mainOptions = {
-        from: "Crepp so gud",
+        from: "DHD Shop",
         to: email,
-        subject: "Test",
-        text: "text ne",
-        html: "<p>Mật khẩu mới của bạn là:</p>" + tpass
+        subject: "Yêu cầu quên mật khẩu",
+        text: "",
+        html: "<h2>Mật khẩu mới của bạn là:</h2>" + tpass
       };
       transporter.sendMail(mainOptions, (err, info) => {
         if (err) {

@@ -45,6 +45,7 @@ exports.postAccountChange = (req, res, next) => {
   req.user.email = req.body.email;
   req.user.address = req.body.address;
   req.user.phoneNumber = req.body.phoneNumber;
+  req.user.Avatar = req.body.AvatarLink;
   req.user.save();
   res.redirect("/account");
 };

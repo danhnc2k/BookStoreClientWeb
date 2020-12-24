@@ -21985,7 +21985,7 @@ table + *[class^="btn"] {
   width: 100%; }
   .tt-table-shop-01 th,
   .tt-table-shop-01 td {
-    width: 20%;
+    width: 16%;
     line-height: 17px; }
   .tt-table-shop-01 thead tr {
     border-top: 1px solid #e9e7e7; }

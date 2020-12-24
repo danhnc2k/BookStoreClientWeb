@@ -19,6 +19,10 @@ const orderSchema = new Schema({
   phoneNumber: {
     type: Number,
     required: true
+  },
+  status: {
+    type: String,
+    required: true
   }
 });
 
