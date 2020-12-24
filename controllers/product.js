@@ -381,7 +381,8 @@ exports.postAddOrder = async (req, res, next) => {
       user: req.user,
       cart: req.session.cart,
       address: req.body.address,
-      phoneNumber: req.body.phone
+      phoneNumber: req.body.phone,
+      status: "Đặt hàng thành công",
     });
 
     for (var id in req.session.cart.items) {

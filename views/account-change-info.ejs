@@ -28,11 +28,15 @@
                   <div class="form-group">
                     
                       <label for="ProductImage">Hình ảnh</label>
-                      <input type="file" class="form-control-file" name="ProductImage" id="nameImage" multiple/>
-                      <div class="image-preview" id="imagePreview">
-                        <img src="" alt="Image Preview" class="image-preview__image"/>
-                        <span class="image-preview__default-text">Image Preview</span>
-                         
+                      <input type="text" class="form-control" name="AvatarLink" id="nameImage" multiple/>
+                      <div class="image-preview" id="imagePreview" style="height: 150px; width: 200px; border: black 1px; border-radius: 25%; border-color: black">
+                        <% if (user.Avatar != undefined) { %>
+                          <img src="<%= user.Avatar %>" alt="Image Preview" class="image-preview__image" style="height: 150px; width: 200px;"/>
+                        <% } %>
+                          <% if (user.Avatar == undefined) { %>
+                            <span class="image-preview__default-text">Image Preview</span>
+                          <% } %>
+
                       </div>  
                     
                     <label for="shopInputFirstName" class="control-label"

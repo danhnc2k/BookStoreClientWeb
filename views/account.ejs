@@ -49,6 +49,7 @@
                       <th>Địa chỉ</th>
                       <th>SĐT</th>
                       <th>Tổng</th>
+                      <th>Trạng thái</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -63,6 +64,9 @@
                       <td>
                         $<%= o.cart.totalPrice %> cho <%= o.cart.totalQty %> sản
                         phẩm
+                      </td>
+                      <td style="color: green">
+                        <%= o.status %>
                       </td>
                     </tr>
                     <% }) %>
@@ -93,6 +97,18 @@
                     <tr>
                       <td>Số điện thoại:</td>
                       <td><%= user.phoneNumber %></td>
+                    </tr>
+
+                    <tr>
+                      <td>Ảnh đại diện:</td>
+                      <td>
+                        <% if (user.Avatar != "" && user.Avatar != undefined) { %>
+                          <img src="<%= user.Avatar %>" alt="Image Preview" class="image-preview__image" style="height: 150px; width: 200px;"/>
+                        <% } %>
+                        <% if (user.Avatar == "" || user.Avatar == undefined) { %>
+                          <p>Chưa có</p>
+                        <% } %>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
