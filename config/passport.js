@@ -44,7 +44,7 @@ module.exports = function(passport) {
             return done(err);
           }
           //console.log('acc : ' + user.username + ' ' + user.password + ' ' + password, result);
-            if (!result) {
+            if (result) {
                 return done(null, user);
                 
             } else {
