@@ -60,7 +60,7 @@ module.exports = function(passport) {
   passport.use(
     'local-signup',
     new LocalStrategy({ passReqToCallback: true }, function(req, username, password, done) {
-      User.findOne({ username: username }, function(err, user) {
+      User.findOne({ username: username }, async function(err, user) {
         if (err) {
           return done(err);
         }
@@ -87,7 +87,7 @@ module.exports = function(passport) {
             message: 'Địa chỉ email không hợp lệ!'
           });
         }
-        User.findOne({ email: req.body.email }, (err, user) => {
+        await User.findOne({ email: req.body.email }, (err, user) => {
           if (err) {
             return done(err);
           } else if (user) {
@@ -95,19 +95,20 @@ module.exports = function(passport) {
               message: 'Địa chỉ email đã tồn tại!'
             });
           }
-        });
-
-        bcrypt.hash(password, 12).then(hashPassword => {
-          const newUser = new User({
-            username: username,
-            password: hashPassword,
-            email: req.body.email
-          });
-          // save the user
-          newUser.save(function(err) {
-            if (err) return done(err);
-            return done(null, newUser);
-          });
+          else {
+            bcrypt.hash(password, 12).then(hashPassword => {
+              const newUser = new User({
+                username: username,
+                password: hashPassword,
+                email: req.body.email
+              });
+              // save the user
+              newUser.save(function(err) {
+                if (err) return done(err);
+                return done(null, newUser);
+              });
+            });
+          }
         });
       });
     })
