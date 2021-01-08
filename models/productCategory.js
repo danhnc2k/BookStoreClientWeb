@@ -8,10 +8,10 @@ const productCategorySchema = new Schema({
         name: String,
       }
     ]
-});
+},{ collection : 'Categories' });
 
-const productCategory = mongoose.model(
-  "productCategory",
+const Category = mongoose.model(
+  "Category",
   productCategorySchema
 );
-module.exports = productCategory;
+module.exports = Category;

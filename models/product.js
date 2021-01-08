@@ -115,7 +115,7 @@ const productSchema = new Schema({
       }
     ]
   }
-});
+},{ collection : 'Products' });
 
 productSchema.plugin(mongoosePaginate);
 

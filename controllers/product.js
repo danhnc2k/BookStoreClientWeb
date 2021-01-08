@@ -139,14 +139,16 @@ exports.getProducts = (req, res, next) => {
     });
   });
 
-  let childType;
+  let childType = [];
   if (productType == undefined) {
     productType = "";
   } else {
     Categories.findOne({ _id: `${productType}` }, (err, data) => {
       if (err) console.log(err);
       if (data) {
-        childType = data.childName || "";
+        data.childName.forEach(child => {
+          childType.push(child);
+        });
       } else {
         childType = "";
       }
@@ -156,14 +158,29 @@ exports.getProducts = (req, res, next) => {
   if (productChild == undefined) {
     productChild = "";
   }
+  searchText =
+      req.query.searchText !== undefined ? req.query.searchText : searchText;
 
-  const filter = {
-    "productType.main": new RegExp(productType, "i"),
-    "productType.sub": new RegExp(productChild, "i"),
-    size: new RegExp(psize, "i"),
-    price: { $gt: plowerprice, $lt: pprice },
-    labels: new RegExp(plabel, "i"),
-  };
+  var filter;
+  if (searchText){
+    filter = {
+      $text: { $search: searchText },
+      "productType.main": new RegExp(productType, "i"),
+      "productType.sub": new RegExp(productChild, "i"),
+      size: new RegExp(psize, "i"),
+      price: { $gt: plowerprice, $lt: pprice },
+      labels: new RegExp(plabel, "i"),
+    };
+  }
+  else {
+    filter = {
+      "productType.main": new RegExp(productType, "i"),
+      "productType.sub": new RegExp(productChild, "i"),
+      size: new RegExp(psize, "i"),
+      price: { $gt: plowerprice, $lt: pprice },
+      labels: new RegExp(plabel, "i"),
+    };
+  }
 
 
   ProductsService.count(filter)
@@ -194,6 +211,7 @@ exports.getProducts = (req, res, next) => {
         subcat: subcat,
         alllabels,
         subcatfilter: subcat,
+        searchText,
       });
     })
     .catch(err => {
@@ -214,44 +232,39 @@ exports.getSearch = (req, res, next) => {
     var cart = new Cart(req.session.cart);
     cartProduct = cart.generateArray();
   }
-  searchText =
-    req.query.searchText !== undefined ? req.query.searchText : searchText;
-  const page = +req.query.page || 1;
 
-  Products.createIndexes({}).catch(err => {
-    console.log(err);
-  });
-  Products.find({
-    $text: { $search: searchText }
-  })
-    .countDocuments()
-    .then(numProduct => {
-      totalItems = numProduct;
-      return Products.find({
-        $text: { $search: searchText }
+  searchText =
+      req.query.searchText !== undefined ? req.query.searchText : searchText;
+  const filter = {
+    $text: { $search: searchText },
+  };
+
+  var page = +req.query.page || 1;
+
+  ProductsService.count(filter)
+      .then(numProduct => {
+        totalItems = numProduct;
+        return ProductsService.listproduct(filter, page, ITEM_PER_PAGE);
       })
-        .skip((page - 1) * 12)
-        .limit(12);
-    })
-    .then(products => {
-      res.render("search-result", {
-        title: "Kết quả tìm kiếm cho " + searchText,
-        user: req.user,
-        searchProducts: products,
-        searchT: searchText,
-        currentPage: page,
-        hasNextPage: 12 * page < totalItems,
-        hasPreviousPage: page > 1,
-        nextPage: page + 1,
-        previousPage: page - 1,
-        lastPage: Math.ceil(totalItems / 12),
-        cartProduct: cartProduct,
-        subcat,
+      .then(paginate => {
+        res.render("search-result", {
+          title: "Kết quả tìm kiếm cho " + searchText,
+          user: req.user,
+          searchProducts: paginate.docs,
+          searchT: searchText,
+          currentPage: page,
+          hasNextPage: paginate.hasNextPage,
+          hasPreviousPage: paginate.hasPrevPage,
+          nextPage: page + 1,
+          previousPage: page - 1,
+          lastPage: paginate.totalPages,
+          cartProduct: cartProduct,
+          subcat,
+        });
+      })
+      .catch(err => {
+        console.log(err);
       });
-    })
-    .catch(err => {
-      console.log(err);
-    });
 };
 
 exports.postComment = (req, res, next) => {
