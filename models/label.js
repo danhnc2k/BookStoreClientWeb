@@ -6,7 +6,7 @@ const labelSchema = new Schema({
     type: String,
     require: true,
   }
-});
+},{ collection : 'Labels' });
 
 const Label = mongoose.model("Label", labelSchema);
 module.exports = Label;
