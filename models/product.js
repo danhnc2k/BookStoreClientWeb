@@ -46,6 +46,11 @@ const productSchema = new Schema({
     required: false,
     default: Date.now
   },
+  sale: {
+    type: String,
+    required: false,
+    default: 0
+  },
   labels: {
     type: String,
     required: false
