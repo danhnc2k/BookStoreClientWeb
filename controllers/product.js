@@ -185,12 +185,10 @@ exports.getProducts = (req, res, next) => {
     };
   }
 
-  var a = ProductsService.count();
-
-  ProductsService.count()
+  ProductsService.count(filter)
     .then(numProduct => {
       totalItems = numProduct;
-      return ProductsService.listproduct({}, page, ITEM_PER_PAGE, orderby);
+      return ProductsService.listproduct(filter, page, ITEM_PER_PAGE, orderby);
     })
     .then(paginate => {
       res.render("products", {
