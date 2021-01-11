@@ -152,22 +152,22 @@
       }
     });
     function selectType() {
-      const ProductType = document.getElementById("ProductType").value;
+      const category = document.getElementById("category").value;
       const PhuKien = document.getElementById("ProductSubTypePhuKien");
       const Ao = document.getElementById("ProductSubTypeAo");
       const Quan = document.getElementById("ProductSubTypeQuan");
 
-      if (ProductType == "Phụ Kiện"){
+      if (category == "Phụ Kiện"){
         PhuKien.style.display = "block";
         Ao.style.display = "none";
         Quan.style.display = "none";
       }
-      else if (ProductType == "Áo"){
+      else if (category == "Áo"){
         PhuKien.style.display = "none";
         Ao.style.display = "block";
         Quan.style.display = "none";
       }
-      else if (ProductType == "Quần"){
+      else if (category == "Quần"){
         PhuKien.style.display = "none";
         Ao.style.display = "none";
         Quan.style.display = "block";

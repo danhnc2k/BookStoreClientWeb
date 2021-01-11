@@ -33,12 +33,15 @@ exports.getIndexProducts = async (req, res, next) => {
   }
   const products = await ProductsService.listproduct({},1,8,{viewCounts:-1});
   const products2 = await ProductsService.listproduct({},1,8,{buyCounts:-1});
+  products2.docs.forEach(doc => {
+    var a = doc.name;
+  });
   res.render("index", {
     title: "Trang chủ",
     user: req.user,
-    trendings: products.docs,
-    hots: products2.docs,
     cartProduct: cartProduct,
+    hots: products.docs,
+    trendings: products2.docs,
     subcat: subcat,
     subcat2: subcat,
     maincat: maincat,
@@ -56,8 +59,8 @@ exports.getProduct = (req, res, next) => {
   }
   const prodId = req.params.productId;
   Products.findOne({ _id: `${prodId}` }).then(product => {
-    Products.find({ "productType.sub": product.productType.sub }).then( relatedProducts => {
-        Categories.findOne({_id: product.productType.main}).then(cat =>{
+    Products.find({ "category.sub": product.category.sub }).then( relatedProducts => {
+        Categories.findOne({_id: product.category.main}).then(cat =>{
           res.render("product", {
             title: `${product.name}`,
             user: req.user,
@@ -84,7 +87,7 @@ exports.getProducts = (req, res, next) => {
     var cart = new Cart(req.session.cart);
     cartProduct = cart.generateArray();
   }
-  let productType = req.params.productType;
+  let category = req.params.category;
   let productChild = req.params.productChild;
 
   ptype = req.query.type !== undefined ? req.query.type : ptype;
@@ -140,10 +143,10 @@ exports.getProducts = (req, res, next) => {
   });
 
   let childType = [];
-  if (productType == undefined) {
-    productType = "";
+  if (category == undefined) {
+    category = "";
   } else {
-    Categories.findOne({ _id: `${productType}` }, (err, data) => {
+    Categories.findOne({ _id: `${category}` }, (err, data) => {
       if (err) console.log(err);
       if (data) {
         data.childName.forEach(child => {
@@ -165,8 +168,8 @@ exports.getProducts = (req, res, next) => {
   if (searchText){
     filter = {
       $text: { $search: searchText },
-      "productType.main": new RegExp(productType, "i"),
-      "productType.sub": new RegExp(productChild, "i"),
+      "category.main": new RegExp(category, "i"),
+      "category.sub": new RegExp(productChild, "i"),
       size: new RegExp(psize, "i"),
       price: { $gt: plowerprice, $lt: pprice },
       labels: new RegExp(plabel, "i"),
@@ -174,19 +177,20 @@ exports.getProducts = (req, res, next) => {
   }
   else {
     filter = {
-      "productType.main": new RegExp(productType, "i"),
-      "productType.sub": new RegExp(productChild, "i"),
+      "category.main": new RegExp(category, "i"),
+      "category.sub": new RegExp(productChild, "i"),
       size: new RegExp(psize, "i"),
       price: { $gt: plowerprice, $lt: pprice },
       labels: new RegExp(plabel, "i"),
     };
   }
 
+  var a = ProductsService.count();
 
-  ProductsService.count(filter)
+  ProductsService.count()
     .then(numProduct => {
       totalItems = numProduct;
-      return ProductsService.listproduct(filter, page, ITEM_PER_PAGE, orderby);
+      return ProductsService.listproduct({}, page, ITEM_PER_PAGE, orderby);
     })
     .then(paginate => {
       res.render("products", {
@@ -196,7 +200,7 @@ exports.getProducts = (req, res, next) => {
         totalProducts: paginate.totalDocs,
         currentPage: page,
         categories: catName,
-        currentCat: productType,
+        currentCat: category,
         currentChild: productChild,
         categoriesChild: childType,
         hasNextPage: paginate.hasNextPage,

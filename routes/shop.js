@@ -9,11 +9,11 @@ router.get("/", productController.getIndexProducts);
 router.get("/product/:productId", productController.getProduct);
 
 router.get(
-  "/products/:productType?/:productChild?",
+  "/products/:category?/:productChild?",
   productController.getProducts
 );
 
-router.post("/products/:productType*?", productController.postNumItems);
+router.post("/products/:category*?", productController.postNumItems);
 
 router.post("/product/:productId", productController.postComment);
 
