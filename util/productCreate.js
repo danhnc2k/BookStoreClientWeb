@@ -15,7 +15,7 @@ mongoose.connect(urlConnect, { useNewUrlParser: true }, err => {
     price: 444,
     tags:["#vip","#pro","#cute"],
     size: ["S","M"],
-    productType: { main: "Phụ Kiện", sub: "Trang Trí"},
+    category: { main: "Phụ Kiện", sub: "Trang Trí"},
     color: ["Nâu"],
     pattern: "Trơn",
     images: [
