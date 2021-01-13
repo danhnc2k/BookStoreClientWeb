@@ -161,7 +161,7 @@ exports.postForgotPass = (req, res, next) => {
         service: "Gmail",
         auth: {
           user: "doan18120165@gmail.com",
-          pass: "doan123456"
+          pass: "Doan@123456"
         }
       });
       var tpass = randomstring.generate({

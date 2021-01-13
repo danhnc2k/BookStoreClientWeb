@@ -16,10 +16,23 @@
         </ul>
       </div>
     </div>
+
     <div id="tt-pageContent">
       <div class="container-indent">
         <div class="container">
           <h1 class="tt-title-subpages noborder">GIỎ HÀNG</h1>
+
+          <%if (message != undefined) {
+            message.forEach(function (mes){
+          %>
+            <div
+                    class="form-group form-control error"
+                    style="background-color: #FFCCCC; font-weight: bold; color : rgb(210, 29, 29)"
+            >
+              <%= mes %>
+            </div>
+          <% })} %>
+
           <div class="tt-shopcart-table-02">
             <table>
               <tbody>

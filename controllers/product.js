@@ -305,7 +305,8 @@ exports.getCart = (req, res, next) => {
   res.render("shopping-cart", {
     title: "Giỏ hàng",
     user: req.user,
-    cartProduct: cartProduct
+    cartProduct: cartProduct,
+    message: undefined,
   });
 };
 
@@ -374,19 +375,42 @@ exports.getDeleteItem = (req, res, next) => {
   });
 };
 
-exports.addOrder = (req, res, next) => {
+exports.addOrder = async (req, res, next) => {
   var cartProduct;
   if (!req.session.cart) {
     cartProduct = null;
-  } else {
+  }
+  else {
+    var message = [];
+    for (var id in req.session.cart.items) {
+      await Products.findOne({ _id: id })
+          .then(product => {
+            if (product.stock < parseInt(req.session.cart.items[id].qty))
+            {
+              message.push(product.name + " chỉ còn " + product.stock + " món trong kho");
+            }
+          })
+          .catch(err => console.log(err));
+    }
     var cart = new Cart(req.session.cart);
     cartProduct = cart.generateArray();
+    if (message.length > 0) {
+      res.render("shopping-cart", {
+        title: "Giỏ hàng",
+        user: req.user,
+        cartProduct: cartProduct,
+        message: message,
+      });
+    }
+    else {
+      res.render("add-address", {
+      title: "Thông tin giao hàng",
+      user: req.user,
+      cartProduct: cartProduct
+    });
+    }
+
   }
-  res.render("add-address", {
-    title: "Thông tin giao hàng",
-    user: req.user,
-    cartProduct: cartProduct
-  });
 };
 
 exports.postAddOrder = async (req, res, next) => {
@@ -404,6 +428,7 @@ exports.postAddOrder = async (req, res, next) => {
       await Products.findOne({ _id: id })
         .then(product => {
           product.buyCounts += parseInt(req.session.cart.items[id].qty);
+          product.stock -= parseInt(req.session.cart.items[id].qty);
           product.save();
         })
         .catch(err => console.log(err));
