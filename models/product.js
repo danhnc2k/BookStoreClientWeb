@@ -47,7 +47,7 @@ const productSchema = new Schema({
     default: Date.now
   },
   sale: {
-    type: String,
+    type: Number,
     required: false,
     default: 0
   },

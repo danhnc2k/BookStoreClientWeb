@@ -61,7 +61,7 @@
                     <ul class="tt-list-parameters">
                       <li>
                         <div class="tt-price">
-                          $<%= item.price %>
+                          $<%= item.price * (100 - item.item.sale) / 100 %>
                         </div>
                       </li>
                       <li>
@@ -69,14 +69,14 @@
                       </li>
                       <li>
                         <div class="tt-price subtotal">
-                          $<%= item.price %>
+                          $<%= item.price * (100 - item.item.sale) / 100 %>
                         </div>
                       </li>
                     </ul>
                   </td>
                   <td>
                     <div class="tt-price">
-                      $<%= item.item.price %>
+                      $<%= item.item.price * (100 - item.item.sale) / 100 %>
                     </div>
                   </td>
                   <td>

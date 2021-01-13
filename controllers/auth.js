@@ -89,7 +89,7 @@ exports.getVerifyEmail = (req, res, next) => {
       subject: "Verify Email",
       text: "Verify text",
       html:
-        "<h2>Cảm ơn đã đăng kí tài khoản của Bros shop. Mã kích hoạt của bạn là:</h2>" +
+        "<h2>Cảm ơn đã đăng kí tài khoản của DHD shop. Mã kích hoạt của bạn là:</h2>" +
         verification_token
     };
     transporter.sendMail(mainOptions, (err, info) => {

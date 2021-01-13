@@ -12,10 +12,10 @@ module.exports = function Cart(oldCart) {
       this.numItems++;
     }
     storeItem.qty += itemQty;
-    storeItem.price = storeItem.item.price * storeItem.qty;
+    storeItem.price = storeItem.item.price * (100 - storeItem.item.sale) / 100 * storeItem.qty;
     storeItem.images = storeItem.item.images[0];
     this.totalQty += itemQty;
-    this.totalPrice += storeItem.item.price;
+    this.totalPrice += storeItem.item.price * (100 - storeItem.item.sale) / 100;
   };
 
   this.changeQty = (item, id, qty) => {
@@ -27,10 +27,11 @@ module.exports = function Cart(oldCart) {
     }
     let oldQty = storeItem.qty;
     storeItem.qty = itemQty;
-    storeItem.price = storeItem.item.price * storeItem.qty;
+    this.totalPrice -= storeItem.price
+    storeItem.price = storeItem.item.price * (100 - storeItem.item.sale) / 100  * storeItem.qty;
     storeItem.images = storeItem.item.images[0];
     this.totalQty += itemQty - oldQty;
-    this.totalPrice += storeItem.price - storeItem.item.price * oldQty;
+    this.totalPrice += storeItem.price;
   };
 
   this.deleteItem = id => {
