@@ -76,7 +76,7 @@ exports.getVerifyEmail = (req, res, next) => {
     service: "gmail",
     auth: {
       user: "doan18120165@gmail.com",
-      pass: "doan123456"
+      pass: "Doan@123456"
     }
   });
   Users.findOne({ username: req.user.username }).then(user => {
