@@ -31,8 +31,8 @@ exports.getIndexProducts = async (req, res, next) => {
     var cart = new Cart(req.session.cart);
     cartProduct = cart.generateArray();
   }
-  const products = await ProductsService.listproduct({},1,8,{viewCounts:-1});
-  const products2 = await ProductsService.listproduct({},1,8,{buyCounts:-1});
+  const products = await ProductsService.listproduct({isDeleted: false,},1,8,{viewCounts:-1});
+  const products2 = await ProductsService.listproduct({isDeleted: false,},1,8,{buyCounts:-1});
   products2.docs.forEach(doc => {
     var a = doc.name;
   });
@@ -58,7 +58,10 @@ exports.getProduct = (req, res, next) => {
     cartProduct = cart.generateArray();
   }
   const prodId = req.params.productId;
-  Products.findOne({ _id: `${prodId}` }).then(product => {
+  Products.findOne({ _id: `${prodId}`,isDeleted: false, }).then(product => {
+    if (!product) {
+      res.redirect("/error");
+    }
     Products.find({ "category.sub": product.category.sub }).then( relatedProducts => {
         Categories.findOne({_id: product.category.main}).then(cat =>{
           res.render("product", {
@@ -173,6 +176,7 @@ exports.getProducts = (req, res, next) => {
       size: new RegExp(psize, "i"),
       price: { $gt: plowerprice, $lt: pprice },
       labels: new RegExp(plabel, "i"),
+      isDeleted: false,
     };
   }
   else {
@@ -182,6 +186,7 @@ exports.getProducts = (req, res, next) => {
       size: new RegExp(psize, "i"),
       price: { $gt: plowerprice, $lt: pprice },
       labels: new RegExp(plabel, "i"),
+      isDeleted: false,
     };
   }
 
@@ -239,6 +244,7 @@ exports.getSearch = (req, res, next) => {
       req.query.searchText !== undefined ? req.query.searchText : searchText;
   const filter = {
     $text: { $search: searchText },
+    isDeleted: false,
   };
 
   var page = +req.query.page || 1;
