@@ -262,9 +262,16 @@
 											
 											
 											<a href="/product/<%= prod._id %>">
-												<span class="tt-img"><img src="http://bros-admin.herokuapp.com/assets/images/<%= prod.images[0] %>" data-src="http://bros-admin.herokuapp.com/assets/images/<%= prod.images[0] %>" alt="" class="loaded" data-was-processed="true"></span>
-												<span class="tt-img-roll-over"><img src="http://bros-admin.herokuapp.com/assets/images/<%= prod.images[1] %>" data-src="http://bros-admin.herokuapp.com/assets/images/<%= prod.images[1] %>" alt="" class="loaded" data-was-processed="true"></span>
-											</a>
+												<% if (prod.images[0].search('http') != -1) {%>
+													<span class="tt-img"><img src="<%= prod.images[0] %>" data-src="<%= prod.images[0] %>" alt="" class="loaded" data-was-processed="true"></span>
+												<%} else {%>
+													<span class="tt-img"><img src="http://bros-admin.herokuapp.com/assets/images/<%= prod.images[0] %>" data-src="http://bros-admin.herokuapp.com/assets/images/<%= prod.images[0] %>" alt="" class="loaded" data-was-processed="true"></span>
+												<%}%>
+													<% if (prod.images[1] && prod.images[1].search('http') != -1) {%>
+														<span class="tt-img-roll-over"><img src="<%= prod.images[1] %>" data-src="<%= prod.images[1] %>" alt="" class="loaded" data-was-processed="true"></span>
+													<%} else {%>
+														<span class="tt-img-roll-over"><img src="http://bros-admin.herokuapp.com/assets/images/<%= prod.images[1] %>" data-src="http://bros-admin.herokuapp.com/assets/images/<%= prod.images[0] %>" alt="" class="loaded" data-was-processed="true"></span>
+													<%}%></a>
 										</div>
 										<div class="tt-description">
 											<div class="tt-row">
@@ -344,11 +351,22 @@
 						  </div>
 						  <div class="tt-modal-product">
 							<div class="tt-img">
-							  <img
-								src="/images/loader.svg"
-								data-src="http://bros-admin.herokuapp.com/assets/images/<%= prod.images[0] %>"
-								alt=""
-							  />
+
+								<% if (prod.images[0].search('http') != -1) {%>
+									<img
+											src="/images/loader.svg"
+											data-src="<%= prod.images[0] %>"
+											alt=""
+									/>
+								<%} else {%>
+										<img
+												src="/images/loader.svg"
+												data-src="http://bros-admin.herokuapp.com/assets/images/<%= prod.images[0] %>"
+												alt=""
+										/>
+								<%}%>
+
+
 							</div>
 							<h2 class="tt-title">
 							  <a href="/product/<%= prod.name %>"><%= prod.name %></a>
