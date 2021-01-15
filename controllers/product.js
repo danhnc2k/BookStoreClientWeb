@@ -73,6 +73,7 @@ exports.getProduct = (req, res, next) => {
             cartProduct: cartProduct,
             relatedProducts: relatedProducts,
             category: cat.name,
+            subcat,
           });
           product.save();
         });

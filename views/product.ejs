@@ -502,7 +502,7 @@
 							<div class="tt-description">
 								<div class="tt-row">
 									<ul class="tt-add-info">
-										<li><a href="#"><%= prod.category.sub %></a></li>
+										<li><a href="#"><%= subcat.find(x => x._id == prod.category.sub).name %></a></li>
 									</ul>
 									<div class="tt-rating">
 										<i class="icon-star"></i>
@@ -514,7 +514,10 @@
 								</div>
 								<h2 class="tt-title"><a href="product/<%= prod._id %>"><%= prod.name %></a></h2>
 								<div class="tt-price">
-									$<%= prod.price %>
+									$<%= (prod.price*(100 -(prod.sale))/100) %>
+									<%if (prod.sale != 0) {%>
+									<del style="color: lightgrey">$<%=prod.price%></del>
+									<%}%>
 								</div>
 
 							</div>
